@@ -12,6 +12,12 @@ export async function sendEmail(to: string, content: any) {
     connectionTimeout: 10000, // 10 seconds
     greetingTimeout: 10000,
     socketTimeout: 10000,
+    debug: true, // show debug output
+    logger: true, // log information in console
+    tls: {
+      rejectUnauthorized: false, // do not fail on invalid certs
+    },
+    family: 4, // force IPv4
   });
 
   let htmlContent = "";
