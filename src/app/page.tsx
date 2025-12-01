@@ -29,6 +29,7 @@ export default function Home() {
     const [email, setEmail] = useState("");
     const [sendingEmail, setSendingEmail] = useState(false);
     const [emailStatus, setEmailStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+    const [filter, setFilter] = useState<"all" | "google_play" | "app_store">("all");
 
     const handleSendEmail = async () => {
         if (!email || !result?.pulse) return;
@@ -123,6 +124,11 @@ export default function Home() {
         return currentIndex === -1 ? 0 : (currentIndex / (steps.length - 1)) * 100;
     };
 
+    const filteredReviews = result?.reviews?.filter((r: Review) => {
+        if (filter === "all") return true;
+        return r.source === filter;
+    }) || [];
+
     return (
         <main className="flex min-h-screen flex-col items-center p-12 bg-gradient-to-br from-blue-50 to-indigo-100">
             <div className="max-w-5xl w-full">
@@ -187,11 +193,29 @@ export default function Home() {
                         <div className="bg-white border border-gray-200 px-6 py-5 rounded-lg shadow-lg">
                             {result.pulse && (
                                 <>
-                                    <div className="flex items-center gap-2 mb-4">
-                                        <span className="text-3xl">✅</span>
-                                        <h2 className="font-bold text-2xl text-gray-900">
-                                            {result.pulse?.title || "Weekly Pulse Report"}
-                                        </h2>
+                                    <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-3xl">✅</span>
+                                            <h2 className="font-bold text-2xl text-gray-900">
+                                                {result.pulse?.title || "Weekly Pulse Report"}
+                                            </h2>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <a
+                                                href="/output/reviews.csv"
+                                                download="reviews.csv"
+                                                className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2 text-sm"
+                                            >
+                                                📥 Download CSV
+                                            </a>
+                                            <a
+                                                href="/output/weekly_note.md"
+                                                download="weekly_note.md"
+                                                className="bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors flex items-center gap-2 text-sm"
+                                            >
+                                                📥 Download Note
+                                            </a>
+                                        </div>
                                     </div>
                                     <div className="mb-5 flex gap-3 text-sm flex-wrap">
                                         <span className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium">
@@ -326,11 +350,33 @@ export default function Home() {
                             {/* Reviews List */}
                             {result.reviews && result.reviews.length > 0 && (
                                 <div className="mt-8 border-t border-gray-200 pt-8">
-                                    <h2 className="font-bold text-2xl text-gray-900 mb-6">
-                                        📝 Raw Reviews ({result.reviews.length})
-                                    </h2>
+                                    <div className="flex justify-between items-center mb-6 flex-wrap gap-4">
+                                        <h2 className="font-bold text-2xl text-gray-900">
+                                            📝 Raw Reviews ({filteredReviews.length})
+                                        </h2>
+                                        <div className="flex bg-gray-100 p-1 rounded-lg">
+                                            <button
+                                                onClick={() => setFilter("all")}
+                                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${filter === "all" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                                            >
+                                                All
+                                            </button>
+                                            <button
+                                                onClick={() => setFilter("google_play")}
+                                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${filter === "google_play" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                                            >
+                                                Play Store
+                                            </button>
+                                            <button
+                                                onClick={() => setFilter("app_store")}
+                                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${filter === "app_store" ? "bg-white text-gray-900 shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                                            >
+                                                App Store
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div className="grid gap-4 max-h-[800px] overflow-y-auto pr-2">
-                                        {result.reviews.map((review: Review) => (
+                                        {filteredReviews.map((review: Review) => (
                                             <div key={review.id} className="bg-gray-50 p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
                                                 <div className="flex justify-between items-start mb-2">
                                                     <div className="flex items-center gap-2">
