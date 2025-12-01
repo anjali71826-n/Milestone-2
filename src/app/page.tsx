@@ -270,11 +270,25 @@ export default function Home() {
                                 )}
 
                                 {/* Fallback: Show raw JSON if structure is different */}
-                                {!result.pulse?.overview && !result.pulse?.top_themes && (
+                                {!result.pulse?.overview && !result.pulse?.top_themes && !result.pulse?.html_report && (
                                     <div className="prose max-w-none">
                                         <pre className="whitespace-pre-wrap text-sm bg-gray-50 p-5 rounded-lg border border-gray-200 overflow-auto max-h-[600px] leading-relaxed">
                                             {JSON.stringify(result.pulse, null, 2)}
                                         </pre>
+                                    </div>
+                                )}
+
+                                {/* HTML Report Preview */}
+                                {result.pulse?.html_report && (
+                                    <div className="mt-8 border-t border-gray-200 pt-8">
+                                        <h3 className="font-semibold text-gray-800 mb-4">📄 Email Report Preview</h3>
+                                        <div className="bg-white border border-gray-300 p-4 rounded-lg shadow-inner overflow-auto max-h-[600px]">
+                                            <iframe
+                                                srcDoc={result.pulse.html_report}
+                                                title="Report Preview"
+                                                className="w-full h-[500px] border-none"
+                                            />
+                                        </div>
                                     </div>
                                 )}
                             </div>

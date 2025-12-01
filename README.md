@@ -92,3 +92,30 @@ AI Analyzer
 *   **Scraper:** `google-play-scraper`, `app-store-scraper`
 *   **AI:** Google Gemini Pro (`@google/generative-ai`)
 *   **Email:** `nodemailer`
+
+## How to Re-run for a New Week
+
+To generate the weekly insights for a new week:
+
+1.  Ensure your local development server is running:
+    ```bash
+    yarn dev
+    ```
+2.  Navigate to the application in your browser (usually `http://localhost:3000`).
+3.  Click the "Analyze Reviews" button.
+4.  Wait for the analysis to complete.
+5.  The new artifacts will be generated in the `public/output` directory:
+    -   `reviews.csv`: Contains the latest 250 reviews used for analysis.
+    -   `weekly_note.md`: The weekly insight note in Markdown format.
+
+## Theme Legend
+
+The AI groups reviews into one of the following 5 fixed themes:
+
+1.  **Onboarding**: Issues or feedback related to the sign-up process, account creation, and initial setup.
+2.  **KYC**: Feedback regarding Know Your Customer verification, document uploads, and approval times.
+3.  **Payments**: Issues with deposits, UPI transactions, bank linking, and payment failures.
+4.  **Statements**: Feedback about account statements, portfolio reports, and tax documents.
+5.  **Withdrawals**: Issues related to redeeming funds, withdrawal delays, and settlement times.
+
+Any review that does not fit into these categories is labeled as **Other**.

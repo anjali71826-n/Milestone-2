@@ -7,11 +7,11 @@ export async function groupReviews(reviews: Review[]) {
     const model = genAI.getGenerativeModel({ model: "models/gemini-flash-lite-latest" });
 
     const themes = [
-        "US Stocks",
-        "Onboarding & KYC",
-        "Deposits & Withdrawals",
-        "Portfolio Tracking",
-        "App Experience",
+        "Onboarding",
+        "KYC",
+        "Payments",
+        "Statements",
+        "Withdrawals",
     ];
 
     // Process in batches to avoid context limit
@@ -33,7 +33,7 @@ export async function groupReviews(reviews: Review[]) {
 
       For each review, output a JSON array of objects with:
       - review_id
-      - chosen_theme (exactly one from list)
+      - chosen_theme (exactly one from list, or "Other" if none fit)
       - short_reason
     `;
 
@@ -62,7 +62,9 @@ export async function generateWeeklyPulse(
     // 1. Count themes
     const themeCounts: Record<string, number> = {};
     groupedReviews.forEach((r) => {
-        themeCounts[r.chosen_theme] = (themeCounts[r.chosen_theme] || 0) + 1;
+        if (r.chosen_theme && r.chosen_theme !== "Other") {
+            themeCounts[r.chosen_theme] = (themeCounts[r.chosen_theme] || 0) + 1;
+        }
     });
 
     const topThemes = Object.entries(themeCounts)
@@ -97,12 +99,71 @@ export async function generateWeeklyPulse(
     5. Suggest 3 specific action ideas.
 
     Constraint: Total length ≤ 250 words. Professional, objective tone.
-    Output as JSON.
+    Output as JSON with keys: title, overview, top_themes (array of strings), user_quotes (array of strings), action_ideas (array of strings).
   `;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
     const jsonStr = text.replace(/```json/g, "").replace(/```/g, "");
-    return JSON.parse(jsonStr);
+    const data = JSON.parse(jsonStr);
+
+    // Generate Strict HTML Report
+    const htmlReport = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { font-family: sans-serif; line-height: 1.6; color: #333; }
+            h1 { color: #2c3e50; }
+            h2 { color: #34495e; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; margin-top: 30px; }
+            .overview { background: #f8f9fa; padding: 15px; border-left: 4px solid #3498db; margin-bottom: 20px; }
+            .quote { font-style: italic; color: #555; border-left: 3px solid #27ae60; padding-left: 10px; margin: 10px 0; }
+            .action-item { background: #fff3cd; padding: 10px; margin: 5px 0; border-radius: 4px; }
+        </style>
+    </head>
+    <body>
+        <h1>${data.title}</h1>
+        
+        <div class="overview">
+            <h3>Overview</h3>
+            <p>${data.overview}</p>
+        </div>
+
+        <h2>Top 3 Themes</h2>
+        <ul>
+            ${data.top_themes.map((t: string) => `<li><strong>${t}</strong></li>`).join("")}
+        </ul>
+
+        <h2>User Quotes</h2>
+        ${data.user_quotes.map((q: string) => `<div class="quote">"${q}"</div>`).join("")}
+
+        <h2>Action Ideas</h2>
+        ${data.action_ideas.map((a: string) => `<div class="action-item">💡 ${a}</div>`).join("")}
+    </body>
+    </html>
+    `;
+
+    // Generate Markdown Report
+    const markdownReport = `
+# ${data.title}
+
+## Overview
+${data.overview}
+
+## Top 3 Themes
+${data.top_themes.map((t: string) => `- **${t}**`).join("\n")}
+
+## User Quotes
+${data.user_quotes.map((q: string) => `> "${q}"`).join("\n")}
+
+## Action Ideas
+${data.action_ideas.map((a: string) => `- 💡 ${a}`).join("\n")}
+    `.trim();
+
+    return {
+        ...data,
+        html_report: htmlReport,
+        markdown_report: markdownReport
+    };
 }
