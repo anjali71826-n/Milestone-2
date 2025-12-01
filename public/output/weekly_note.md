@@ -1,19 +1,19 @@
-# Weekly Product Pulse: Payments, KYC, and Statement Accuracy Concerns
+# Weekly Product Pulse: Focus on Payments Friction and Statement Accuracy
 
 ## Overview
-This week's pulse highlights significant friction points across Payments, KYC, and Statements. Payment issues dominate, ranging from stuck deposits and failed mobile recharges to UPI loading errors. KYC processes are frequently cited for technical errors and verification delays. Statement feedback points to incorrect return calculations (XIRR vs. Absolute) and reporting visibility issues, impacting user trust in portfolio tracking.
+This week's pulse highlights significant user friction across our top themes. Payments are plagued by transaction failures, pending statuses, and poor mobile recharge reliability, leading to strong negative sentiment and account closure threats. KYC processes, particularly for re-verification and document upload, remain cumbersome. Statement accuracy is also a concern, with users demanding XIRR calculation for mutual funds and better P&L reporting fidelity.
 
 ## Top 3 Themes
-- **Payments: Significant failures noted in deposits, mobile recharges resulting in deducted but unfulfilled transactions, and UPI processing delays.**
-- **KYC: Persistent issues with verification time-outs, technical errors during setup (especially for US trading), and slow reactivation processes.**
-- **Statements: Users demand correct XIRR reporting for SIPs over absolute returns, and clearer P&L reporting regarding realized vs. unrealized gains.**
+- **Payments: High incidence of failed/pending transactions (especially mobile recharge) and deposit delays.**
+- **KYC: Difficulties with document uploads, verification timing, and complex processes for address/account changes.**
+- **Statements: Demand for correct return metrics (XIRR over absolute %) and improved P&L/holding reports.**
 
 ## User Quotes
-> "My deposit has been stuck for 20+ days... No proper support, no resolution. I’m closing my account."
-> "Mutual fund showing the absolute % rate which is not correct for SIP investment, it should show the XIRR returns."
-> "After 22 minutes waiting for verification I feel totally waist of time... not recommend [for KYC]."
+> "My deposit has been stuck for 20+ days, the app doesn’t allow me to upload the bank statement, and even after sending screen recordings, they kept giving copy-paste replies. No proper support, no resolution."
+> "Mutual fund showing the absolute % rate which is not correct for SIP investment, it should show the XIRR returns..."
+> "We are not mad, trying to do kyc but everytime there is technical error you should improve the app."
 
 ## Action Ideas
-- 💡 Prioritize stabilizing the instant deposit/withdrawal module to eliminate stuck transactions and investigate root cause of failed mobile recharges.
-- 💡 Launch an immediate audit of the KYC verification pipeline, focusing on reducing technical errors and setting transparent resolution SLAs for reactivations.
-- 💡 Implement XIRR as the primary return metric for SIP investments within portfolio statements to align reporting accuracy with user expectations.
+- 💡 Investigate and stabilize the UPI/Payment gateway reliability immediately, prioritizing resolution for stuck transactions.
+- 💡 Streamline the KYC flow for address proof translation/verification for NRI/foreign documentation review.
+- 💡 Implement XIRR calculation as a default or selectable option within Mutual Fund statement views.
