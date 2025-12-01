@@ -17,8 +17,7 @@ export async function sendEmail(to: string, content: any) {
     tls: {
       rejectUnauthorized: false, // do not fail on invalid certs
     },
-    family: 4, // force IPv4
-  });
+  } as nodemailer.TransportOptions);
 
   let htmlContent = "";
 
