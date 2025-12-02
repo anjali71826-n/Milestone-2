@@ -1,23 +1,14 @@
-import nodemailer from "nodemailer";
+import { Resend } from 'resend';
+
+
 
 export async function sendEmail(to: string, content: any) {
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASSWORD,
-    },
-    connectionTimeout: 30000, // 30 seconds
-    greetingTimeout: 30000,
-    socketTimeout: 30000,
-    debug: true, // show debug output
-    logger: true, // log information in console
-    tls: {
-      rejectUnauthorized: false, // do not fail on invalid certs
-    },
-  } as nodemailer.TransportOptions);
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("RESEND_API_KEY is not defined in environment variables. Email will not be sent.");
+    throw new Error("RESEND_API_KEY is not defined");
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   let htmlContent = "";
 
@@ -51,12 +42,16 @@ export async function sendEmail(to: string, content: any) {
   `;
   }
 
-  const info = await transporter.sendMail({
-    from: process.env.SMTP_USER,
-    to: to,
-    subject: `Weekly Pulse: IND Money`,
+  const { data, error } = await resend.emails.send({
+    from: process.env.RESEND_FROM_EMAIL || 'Weekly Pulse <hello@mail.uiuxanjali.com>',
+    to: [to],
+    subject: 'Weekly Pulse: IND Money',
     html: htmlContent,
   });
 
-  return info;
+  if (error) {
+    throw new Error(`Resend error: ${error.message}`);
+  }
+
+  return data;
 }

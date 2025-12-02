@@ -1,19 +1,19 @@
-# Weekly Product Pulse: Payments, KYC Friction & Onboarding Experience
+# Weekly Product Pulse: Focus on KYC, Payments, and Statements
 
 ## Overview
-User feedback this week highlights significant friction points across key journey stages. Payments, particularly concerning failed transactions and mobile recharges, is a major concern. KYC processes, especially for US trading and reactivations, are causing significant delays and frustration. While Onboarding generally receives positive remarks for ease, payment-related onboarding issues persist.
+This week's feedback highlights critical friction points across KYC, Payments, and Statements. KYC processes are flagged for excessive waiting times and technical errors. Payment issues center on failed UPI transactions and unresolved mobile recharge failures resulting in debited funds. Statement users require more accurate return metrics (XIRR) and enhanced P&L visualization for improved portfolio clarity.
 
 ## Top 3 Themes
-- **Payments: Persistent issues with failed/stuck deposits, instant recharge failures, and confusion over instant deposit fees.**
-- **KYC: Multiple reports of technical errors, slow reactivation processes, and difficulty completing US trading KYC.**
-- **Onboarding: Generally positive initial experience, though UPI registration failures and login issues were noted.**
+- **KYC (Process Delays & Technical Errors)**
+- **Payments (UPI Failures & Recharge Issues)**
+- **Statements (Return Metric Accuracy & UI Clarity)**
 
 ## User Quotes
-> "My deposit has been stuck for 20+ days... No proper support, no resolution."
 > "After 22 minutes waiting for verification I feel totally waist of time... not recommend."
-> "I recharged my mobile using your app, but it showed “pending” even though the money was deducted from my account."
+> "Transfer failed today and show download leaste app i update leaste app but not working."
+> "Mutual fund showing the absolute % rate which is not correct for SIP investment, it should show the XIRR returns."
 
 ## Action Ideas
-- 💡 Prioritize a deep-dive audit on the mobile recharge failure loop, focusing on pending states and customer communication.
-- 💡 Investigate and streamline the US Federal Bank KYC flow, as it appears disproportionately complex compared to standard flows.
-- 💡 Review KYC reactivation logic, aiming to reduce the stated 10-day resolution time to under 48 hours for dormant accounts.
+- 💡 Conduct immediate audit of KYC verification pipeline to reduce technical errors and processing time below 24 hours.
+- 💡 Investigate root cause of failed UPI transactions and pending mobile recharges to ensure atomic transaction processing or immediate reversal.
+- 💡 Prioritize implementation of XIRR calculations for SIP investments and enhance the IND Stocks dashboard for clearer return visualization.
