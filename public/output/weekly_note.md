@@ -1,19 +1,19 @@
-# Weekly Product Pulse: Focus on KYC, Payments, and Statements
+# Weekly Product Pulse: KYC Friction and Payment Issues Dominate Feedback
 
 ## Overview
-This week's feedback highlights critical friction points across KYC, Payments, and Statements. KYC processes are flagged for excessive waiting times and technical errors. Payment issues center on failed UPI transactions and unresolved mobile recharge failures resulting in debited funds. Statement users require more accurate return metrics (XIRR) and enhanced P&L visualization for improved portfolio clarity.
+This week's feedback highlights significant user friction primarily concentrated in KYC verification processes and payment failures. While withdrawals are mentioned, KYC blocks and payment transaction errors (especially with UPI and failed recharges) are driving negative sentiment. Support response times for complex issues like KYC reactivation also require immediate attention to improve user confidence.
 
 ## Top 3 Themes
-- **KYC (Process Delays & Technical Errors)**
-- **Payments (UPI Failures & Recharge Issues)**
-- **Statements (Return Metric Accuracy & UI Clarity)**
+- **KYC: Persistent issues with verification, especially for international accounts and reactivation processes, leading to frustration.**
+- **Payments: Recurring failures with UPI transactions, delays in mobile recharge processing, and instant deposit fees noted.**
+- **Withdrawals: Occasional complaints regarding delays in fund settlement periods.**
 
 ## User Quotes
-> "After 22 minutes waiting for verification I feel totally waist of time... not recommend."
-> "Transfer failed today and show download leaste app i update leaste app but not working."
-> "Mutual fund showing the absolute % rate which is not correct for SIP investment, it should show the XIRR returns."
+> "My federal account got blocked in kyc. Connecting indmoney is really hard as we have to create a ticket, we can't call them nor chat with their agent."
+> "I recharged my mobile using your app, but it showed “pending” even though the money was deducted from my account... even after 48 hours, I neither got the recharge nor a refund."
+> "we are not mad, trying to do kyc but everytime there is technical error you should improve the app. can't keep on trying for this."
 
 ## Action Ideas
-- 💡 Conduct immediate audit of KYC verification pipeline to reduce technical errors and processing time below 24 hours.
-- 💡 Investigate root cause of failed UPI transactions and pending mobile recharges to ensure atomic transaction processing or immediate reversal.
-- 💡 Prioritize implementation of XIRR calculations for SIP investments and enhance the IND Stocks dashboard for clearer return visualization.
+- 💡 Implement a dedicated, immediate channel (live chat/call) for users experiencing KYC roadblocks or account blocks.
+- 💡 Investigate and resolve root causes for recurring UPI loading/failure errors following recent security updates.
+- 💡 Streamline the NRI KYC process, potentially by offering in-house document translation services instead of demanding users provide certified translations.
